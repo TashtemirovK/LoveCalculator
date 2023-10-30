@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.di.Hero
@@ -59,13 +60,6 @@ class CalculateFragment : Fragment(), MainView {
     }
 
     override fun changeScreen(loveModel: LoveModel) {
-        /*val resultFragment = ResultFragment()
-        val bundle = Bundle()
-        bundle.putSerializable("key", loveModel)
-        resultFragment.arguments = bundle
-        val fragmentManager = requireActivity().supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.container, resultFragment).addToBackStack(null).commit()*/
         findNavController().navigate(R.id.resultFragment, bundleOf("key" to loveModel))
     }
 
