@@ -1,26 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".ResultFragment">
 
+    <ImageView
+        android:id="@+id/img_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/result" />
 
     <TextView
-        android:id="@+id/percentage"
+        android:id="@+id/tv_you"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="%"
-        android:textSize="32sp" />
-
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="@string/you_need_to_choose_someone_better"
-        android:textSize="22sp" />
+        android:text="you"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/img_little_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/little_heart" />
+
+    <TextView
+        android:id="@+id/tv_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="me"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_your_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Your score"
+        android:textColor="@color/grey"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="100"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Result"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#1E88E5"
+        android:text="Try again"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:cornerRadius="20dp" />
 
 </LinearLayout>

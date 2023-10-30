@@ -6,20 +6,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.di.Hero
 import com.example.lovecalculate.databinding.FragmentCalculateBinding
+import com.example.lovecalculator.databinding.FragmentCalculateBinding
+import com.example.lovecalculator.view.MainPresenter
+import com.example.lovecalculator.view.MainView
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 
-class CalculateFragment : Fragment() {
+@AndroidEntryPoint
+class CalculateFragment : Fragment(), MainView {
 
     private lateinit var binding: FragmentCalculateBinding
+
+    @Inject
+    lateinit var presenter: MainPresenter
+
+    var hero = Hero()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCalculateBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,33 +45,28 @@ class CalculateFragment : Fragment() {
     private fun initClicks() {
         with(binding) {
             btnCalculate.setOnClickListener {
-                RetrofitService().api.getPercentage(
-                    edFirstName.text.toString(),
-                    edSecName.text.toString()
-                ).enqueue(object : Callback<LoveModel> {
-                    override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
-                        val loveModel = response.body()
-                        val resultFragment = ResultFragment()
-                        val bundle = Bundle()
-                        bundle.putString("result", loveModel?.result)
-                        bundle.putString("percentage", loveModel?.percentage)
-                        resultFragment.arguments = bundle
-                        val fragmentManager = requireActivity().supportFragmentManager
-                        val transaction = fragmentManager.beginTransaction()
-                        transaction.replace(R.id.container, resultFragment)
-                        transaction.addToBackStack(null)
-                        transaction.commit()
-                    }
-
-                    override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-
-                    }
-
-                })
+                Toast.makeText(requireContext(), "${hero.name} ${hero.damage}",Toast.LENGTH_SHORT).show()
+                presenter.attachView(this@CalculateFragment)
+                presenter.getData(
+                    etFirst.text.toString(),
+                    etSecond.text.toString()
+                )
             }
-
-
+            btnHistory.setOnClickListener {
+                findNavController().navigate(R.id.historyFragment)
+            }
         }
+    }
+
+    override fun changeScreen(loveModel: LoveModel) {
+        /*val resultFragment = ResultFragment()
+        val bundle = Bundle()
+        bundle.putSerializable("key", loveModel)
+        resultFragment.arguments = bundle
+        val fragmentManager = requireActivity().supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.container, resultFragment).addToBackStack(null).commit()*/
+        findNavController().navigate(R.id.resultFragment, bundleOf("key" to loveModel))
     }
 
 }
