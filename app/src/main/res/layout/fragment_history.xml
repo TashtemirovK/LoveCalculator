@@ -1,31 +1,63 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.history.HistoryFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center|top"
+android:orientation="vertical"
+tools:context=".history.HistoryFragment">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<androidx.cardview.widget.CardView
+    android:layout_width="260dp"
+    android:layout_height="260dp"
+    android:layout_marginTop="16dp"
+    app:cardCornerRadius="130dp">
 
-        <TextView
-            android:id="@+id/tv_history"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
-    </androidx.core.widget.NestedScrollView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_history"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_history" />
+        android:src="@drawable/modal_image" />
+</androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:layout_marginStart="14dp"
+    android:text="History"
+    android:textColor="#FF5722"
+    android:textSize="28sp"
+    android:textStyle="bold" />
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="12dp"
+    android:background="#1A000000" />
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="16dp"
+        android:textSize="18sp" />
+</androidx.core.widget.NestedScrollView>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_history"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:listitem="@layout/item_history" />
+
+</LinearLayout>

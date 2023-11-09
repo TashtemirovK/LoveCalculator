@@ -23,9 +23,9 @@ class HistoryFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentHistoryBinding.inflate(layoutInflater)
+        binding = FragmentHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -33,31 +33,41 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.rvHistory.adapter = adapter
         adapter.addData(dao.getAll())
+        setupUI()
     }
 
-    private fun onLongClick(loveModel: LoveModel) {
+    private fun onLongClick(lover: Love) {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setMessage("Are you sure want delete this history?")
             .setTitle("Delete history")
             .setNegativeButton("nope") { dialog, _ -> dialog?.cancel() }
             .setPositiveButton("yes") { _, _ ->
-                dao.delete(loveModel)
+                dao.delete(lover)
                 setData()
             }
             .show()
     }
 
-    private fun onClick(loveModel: LoveModel) {
+    private fun onClick(lover: Love) {
         val dialog = AlertDialog.Builder(requireContext())
         dialog.setTitle("Time")
-            .setMessage(SimpleDateFormat("d MMM yyyy HH:mm:ss").format(loveModel.insertTime))
+            .setMessage(SimpleDateFormat("d MMM yyyy HH:mm:ss").format(lover.insertTime))
             .setCancelable(true)
             .show()
     }
 
     private fun setData() {
-        val loveModel = dao.getAll()
-        adapter.addData(loveModel)
+        val lover = dao.getAll()
+        adapter.addData(lover)
+    }
+
+    private fun setupUI() {
+        with(binding) {
+            var list = App.appDataBase.loveDao().getAllSort()
+            list.forEach {
+                tvHistory.append("\n${it.firstname}\n${it.secondName}\n${it.percentage}\n${it.result}\n")
+            }
+        }
     }
 
 }

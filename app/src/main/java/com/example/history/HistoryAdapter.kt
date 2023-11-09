@@ -1,9 +1,11 @@
 package com.example.history
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lovecalculator.LoveModel
+import com.example.lovecalculator.databinding.FragmentHistoryBinding
 import com.example.lovecalculator.databinding.ItemHistoryBinding
 
 class HistoryAdapter(
@@ -14,6 +16,7 @@ class HistoryAdapter(
 
     private val historyList = ArrayList<LoveModel>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addData(loveModel: List<LoveModel>) {
         historyList.clear()
         historyList.addAll(loveModel)
@@ -22,7 +25,7 @@ class HistoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder(
-            ItemHistoryBinding.inflate(
+            FragmentHistoryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -36,20 +39,21 @@ class HistoryAdapter(
 
     override fun getItemCount() = historyList.size
 
-    inner class HistoryViewHolder(private val binding: ItemHistoryBinding) :
+    inner class HistoryViewHolder(private val binding: FragmentHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(loveModel: LoveModel) {
-            binding.tvFirstName.text = loveModel.fname
-            binding.tvSecondName.text = loveModel.sname
-            binding.tvPercent.text = loveModel.percentage
+        fun bind(lover: LoveModel) {
+            binding.tvHistory.text = lover.firstname
+            binding.tvHistory.text = lover.secondName
+            binding.tvHistory.text = lover.percentage
+            binding.tvHistory.text = lover.result
 
             itemView.setOnLongClickListener {
-                onLongClick(loveModel)
+                onLongClick(lover)
                 true
             }
 
             itemView.setOnClickListener {
-                onCLick(loveModel)
+                onCLick(lover)
             }
         }
     }
